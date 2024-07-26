@@ -5,8 +5,8 @@ export default function NavOne({ logo }: { logo: string }) {
 
   return (
     <div className="fixed m-0 w-screen bg-gradient-to-r from-indigo-500 to-indigo-600 h-24 content-center">
-      <div className="flex justify-between md:justify-start">
-        <div className="flex flex-row items-center md:justify-start">
+      <div className="flex justify-evenly">
+        <div className="flex flex-row items-center">
           <img
             className="size-20 rounded-full mx-1 md:mx-6 shadow-lg"
             src={logo}
@@ -16,7 +16,7 @@ export default function NavOne({ logo }: { logo: string }) {
             Domino's
           </span>
         </div>
-        <nav className="md:block hidden">
+        <nav className="md:block hidden ">
           <ul className="ml-20 flex flex-row justify-between text-lg space-x-4 mr-2">
             <a href="#">
               <li className="my-4 py-3 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
@@ -40,11 +40,28 @@ export default function NavOne({ logo }: { logo: string }) {
             </a>
           </ul>
         </nav>
+
+        <button className="rounded-full border-2 mx-1 shadow-lg size-14 self-center bg-gray-200 flex justify-center items-center justify-self-end">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            className="absolute"
+          >
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+          </svg>
+          <span className="border-2 bg-red-600 text-white rounded-full px-2 bottom-6 left-5 relative ">
+            2
+          </span>
+        </button>
+
         <button
           onClick={() => {
             setMenu(!menu);
           }}
-          className="md:hidden justify-self-end bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center p-5 mr-6"
+          className="md:hidden bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center p-5 mr-6"
         >
           {!menu ? (
             <svg
@@ -75,7 +92,7 @@ export default function NavOne({ logo }: { logo: string }) {
         {
           // Mobile version menu activation
           menu && (
-            <nav className="md:hidden bg-slate-500 h-screen w-screen opacity-90 p-10 absolute top-[6rem]">
+            <nav className="md:hidden bg-slate-500 h-screen w-screen opacity-90 p-10 absolute top-[6rem] z-50">
               <ul className="flex flex-col text-center">
                 <a href="#">
                   <li className="my-4 border-t-2 border-b-2 py-3 w-full text-white">

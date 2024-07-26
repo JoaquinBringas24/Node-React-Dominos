@@ -14,12 +14,21 @@ export default function CarouselOne({
   id: string;
   advertisementLink: string;
 }) {
-  // fetches the images from the Backend
-
   const [imgArray, setArray] = useState<any[]>([]);
 
-  const [position, setPostion] = useState(0);
+  const [current, setCurrent] = useState<number>(0);
 
+  let previousSlide = () => {
+    if (current === 0) setCurrent(imgArray.length - 1);
+    else setCurrent(current - 1);
+  };
+
+  let nextSlide = () => {
+    if (current === imgArray.length - 1) setCurrent(0);
+    else setCurrent(current + 1);
+  };
+
+  // fetches the images from the Backend
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,7 +36,6 @@ export default function CarouselOne({
           .then((res) => res.json())
           .then((data) => {
             setArray(data);
-            console.log(data);
           });
       } catch (e) {
         console.log(e);
@@ -38,13 +46,16 @@ export default function CarouselOne({
   }, []);
 
   return (
-    <div className="container pt-24 flex max-w-screen-2xl relative">
-      <div className="flex flex-row overflow-hidden">
+    <div className={"pt-24 flex max-w-full absolute -z-20 overflow-hidden"}>
+      <div
+        className="flex flex-row ease-out duration-40 transition"
+        style={{ transform: `translateX(-${current * 33.33}%)` }}
+      >
         {imgArray.map((img) => {
           return (
             <a href={img.adLink}>
               <img
-                className="max-w-screen-2xl w-screen max-h-[400px]"
+                className="max-w-screen-2xl w-screen max-h-[200px]"
                 src={img.source}
                 alt={img.title}
                 key={img.id}
@@ -53,15 +64,15 @@ export default function CarouselOne({
           );
         })}
       </div>
-      <div className="absolute">
+      <div className="z-10 absolute">
         <button
-          onClick={() => setPostion(position)}
+          onClick={previousSlide}
           className="w-20 text-white text-2xl bg-slate-800 bg-opacity-25"
         >
           &lt;
         </button>
         <button
-          onClick={() => setPostion(position - 1)}
+          onClick={nextSlide}
           className="w-20 text-white text-2xl bg-slate-800 bg-opacity-25"
         >
           &gt;
