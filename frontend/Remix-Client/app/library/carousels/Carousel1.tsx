@@ -18,6 +18,8 @@ export default function CarouselOne({
 
   const [imgArray, setArray] = useState<any[]>([]);
 
+  const [position, setPostion] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,18 +38,35 @@ export default function CarouselOne({
   }, []);
 
   return (
-    <div className="container pt-24">
-      <ul className="flex flex-col items-center w-screen">
+    <div className="container pt-24 flex max-w-screen-2xl relative">
+      <div className="flex flex-row overflow-hidden">
         {imgArray.map((img) => {
           return (
-            <li>
-              <a href={img.adLink}>
-                <img src={img.source} alt={img.title} key={img.id} />
-              </a>
-            </li>
+            <a href={img.adLink}>
+              <img
+                className="max-w-screen-2xl w-screen max-h-[400px]"
+                src={img.source}
+                alt={img.title}
+                key={img.id}
+              />
+            </a>
           );
         })}
-      </ul>
+      </div>
+      <div className="absolute">
+        <button
+          onClick={() => setPostion(position)}
+          className="w-20 text-white text-2xl bg-slate-800 bg-opacity-25"
+        >
+          &lt;
+        </button>
+        <button
+          onClick={() => setPostion(position - 1)}
+          className="w-20 text-white text-2xl bg-slate-800 bg-opacity-25"
+        >
+          &gt;
+        </button>
+      </div>
     </div>
   );
 }

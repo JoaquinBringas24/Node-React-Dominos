@@ -4,9 +4,9 @@ export default function NavOne({ logo }: { logo: string }) {
   const [menu, setMenu] = useState(false);
 
   return (
-    <div className="fixed m-0 w-full bg-gradient-to-r from-indigo-500 to-indigo-600 h-24 content-center">
-      <div className="grid grid-cols-6 md:flex">
-        <div className="col-span-5 flex flex-row justify-center items-center md:justify-start">
+    <div className="fixed m-0 w-screen bg-gradient-to-r from-indigo-500 to-indigo-600 h-24 content-center">
+      <div className="flex justify-between md:justify-start">
+        <div className="flex flex-row items-center md:justify-start">
           <img
             className="size-20 rounded-full mx-1 md:mx-6 shadow-lg"
             src={logo}
@@ -44,7 +44,7 @@ export default function NavOne({ logo }: { logo: string }) {
           onClick={() => {
             setMenu(!menu);
           }}
-          className="md:hidden col-span-1 bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center justify-self-center p-5 mr-6"
+          className="md:hidden justify-self-end bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center p-5 mr-6"
         >
           {!menu ? (
             <svg

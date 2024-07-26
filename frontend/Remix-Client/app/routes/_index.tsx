@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <>
+    <div className="w-screen">
       <NavOne logo="/dominos-logo.png" />
       <div>
         <CarouselOne
@@ -21,6 +21,6 @@ export default function Index() {
           advertisementLink="adlink"
         />
       </div>
-    </>
+    </div>
   );
 }
