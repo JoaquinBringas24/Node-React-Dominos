@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 // Arguments are the name of the JSON attributes of the fetched array.
@@ -46,21 +47,21 @@ export default function CarouselOne({
   }, []);
 
   return (
-    <div className={"pt-24 flex max-w-full absolute -z-20 overflow-hidden"}>
+    <div className={"pt-24 flex max-w-full absolute z-10 overflow-hidden"}>
       <div
         className="flex flex-row ease-out duration-40 transition"
         style={{ transform: `translateX(-${current * 33.33}%)` }}
       >
         {imgArray.map((img) => {
           return (
-            <a href={img.adLink}>
+            <Link to={img.adlink}>
               <img
                 className="max-w-screen-2xl w-screen max-h-[200px]"
                 src={img.source}
                 alt={img.title}
                 key={img.id}
               />
-            </a>
+            </Link>
           );
         })}
       </div>

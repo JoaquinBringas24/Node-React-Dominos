@@ -1,21 +1,43 @@
-import { configureStore, Store } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  createSlice,
+  PayloadAction,
+  Store,
+} from "@reduxjs/toolkit";
+import { useEffect } from "react";
+import { loadState, saveState } from "./Localstates";
 
-function cartItem(state: any = { value: 0, cart: [] }, action: any) {
-  switch (action.type) {
-    case "add":
-      state.value + 1;
-      state.cart.push(action.id);
+let initialData: number[] = loadState() || [];
 
-    case "remove":
-      state.value - 1;
-      state.cart.pop(action.id);
-  }
-}
+let initialState: { counter: number; items: number[] } = {
+  counter: initialData.length || 0,
+  items: initialData || [],
+};
 
-const store = configureStore({
-  reducer: cartItem,
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    increment(state, action: PayloadAction<number>) {
+      state.counter++;
+      state.items.push(action.payload);
+    },
+    decrease(state, action: PayloadAction<number>) {
+      state.counter--;
+      const idx = state.items.findIndex((item) => item == action.payload);
+      state.items.splice(idx, 1);
+    },
+  },
 });
 
-store.subscribe(() => console.log(store.getState()));
+const store = configureStore({
+  reducer: cartSlice.reducer,
+});
+
+store.subscribe(function () {
+  saveState(store.getState());
+});
+
+export const cartActions = cartSlice.actions;
 
 export default store;

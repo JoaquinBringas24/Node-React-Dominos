@@ -1,47 +1,61 @@
+import { Link } from "@remix-run/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import CartOne from "../cart/CartOne";
 
 export default function NavOne({ logo }: { logo: string }) {
   const [menu, setMenu] = useState(false);
 
+  const [show, setShow] = useState(false);
+
+  const counter = useSelector((state: any) => state.counter);
+
   return (
-    <div className="fixed m-0 w-screen bg-gradient-to-r from-indigo-500 to-indigo-600 h-24 content-center">
-      <div className="flex justify-evenly">
-        <div className="flex flex-row items-center">
-          <img
-            className="size-20 rounded-full mx-1 md:mx-6 shadow-lg"
-            src={logo}
-            alt=""
-          />
-          <span className="font-medium text-2xl text-white md:text-4xl">
-            Domino's
-          </span>
-        </div>
+    <div className="fixed md:m-0 w-[calc(100%-0.01rem)] bg-gradient-to-r from-indigo-500 to-indigo-600 h-24 content-center z-20">
+      <div className="flex justify-end md:justify-evenly">
+        <Link to="/">
+          <div className="flex flex-row items-center pt-1 justify-self-start mr-32">
+            <img
+              className="size-20 rounded-full mx-1 md:mx-6 shadow-lg"
+              src={logo}
+              alt=""
+            />
+            <span className="font-medium text-2xl text-white md:text-4xl">
+              Domino's
+            </span>
+          </div>
+        </Link>
         <nav className="md:block hidden ">
           <ul className="ml-20 flex flex-row justify-between text-lg space-x-4 mr-2">
-            <a href="#">
-              <li className="my-4 py-3 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
+            <Link to="/items">
+              <li className="py-8 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
                 Order Now
               </li>
-            </a>
+            </Link>
             <a href="#">
-              <li className="my-4 py-3 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
+              <li className="py-8 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
                 Promos
               </li>
             </a>
             <a href="#">
-              <li className="my-4 py-3 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
+              <li className="py-8 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
                 Locations
               </li>
             </a>
             <a href="#">
-              <li className="my-4 py-3 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
+              <li className="py-8 text-white hover:bg-indigo-700 transition-all duration-200 px-2">
                 My Account
               </li>
             </a>
           </ul>
         </nav>
 
-        <button className="rounded-full border-2 mx-1 shadow-lg size-14 self-center bg-gray-200 flex justify-center items-center justify-self-end">
+        <CartOne fun={setShow} state={show} />
+
+        <button
+          onClick={() => setShow(!show)}
+          className="rounded-full border-2 mx-1 shadow-lg min-h-14 min-w-14 self-center bg-gray-200 flex justify-center items-center justify-self-end"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -52,8 +66,8 @@ export default function NavOne({ logo }: { logo: string }) {
           >
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
           </svg>
-          <span className="border-2 bg-red-600 text-white rounded-full px-2 bottom-6 left-5 relative ">
-            2
+          <span className="border-2 bg-red-600 text-white rounded-full p-1 bottom-6 left-5 relative max-h-9 max-w-9 min-w-9">
+            {counter > 99 ? "99+" : counter}
           </span>
         </button>
 
@@ -61,7 +75,7 @@ export default function NavOne({ logo }: { logo: string }) {
           onClick={() => {
             setMenu(!menu);
           }}
-          className="md:hidden bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center p-5 mr-6"
+          className="md:hidden bg-gray-200 border-gray-300 rounded-full max-w-16 max-h-16 self-center p-5 mx-4"
         >
           {!menu ? (
             <svg
